@@ -2,15 +2,11 @@ package com.ksh.documents;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
 KSHITIJ
@@ -26,11 +22,8 @@ public class User implements Serializable {
 	private String fName;
 	private String lName;
 	private String email;
-	private String pinCode;
-//	@DateTimeFormat(iso = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+	private int pinCode;
 	@JsonFormat(pattern = "dd-MMM-yyyy")  
-	//@JsonDeserialize(using = LocalDateDeserializer.class)  
-	//@JsonSerialize(using = LocalDateSerializer.class)  
 	private LocalDate birthDate;
 	
 	public String getId() {
@@ -57,10 +50,10 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPinCode() {
+	public int getPinCode() {
 		return pinCode;
 	}
-	public void setPinCode(String pinCode) {
+	public void setPinCode(int pinCode) {
 		this.pinCode = pinCode;
 	}
 	public LocalDate getBirthDate() {

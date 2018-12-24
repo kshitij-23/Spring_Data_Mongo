@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksh.documents.User;
+import com.ksh.reqrep.UserResponse;
 import com.ksh.services.UserService;
 
 /**
@@ -43,7 +44,16 @@ public class UserController {
 	
 	@RequestMapping("/save")
 	public User save(@RequestBody User user) {
-		return userService.save(user);
+		User user2 = userService.save(user);
+		UserResponse userResponse = new UserResponse();
+		if(user2.getId() != null && !user2.getId().isEmpty()) {
+			userResponse.setResMsg("User created Successfully.");
+			userResponse.setUserId(user2.getId());
+			userResponse.setValErrors(null);
+		}
+		else {
+			
+		}
 	}
 	
 	@RequestMapping("/saveAll")
@@ -71,4 +81,8 @@ public class UserController {
 		userService.deleteById(id);
 	}
 	
+	@RequestMapping("/delete")
+	public void delete(@RequestBody User user) {
+		userService.delete(user);
+	}
 }
