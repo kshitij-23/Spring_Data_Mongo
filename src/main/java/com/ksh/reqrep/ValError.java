@@ -13,6 +13,16 @@ public class ValError implements Serializable {
 	private String field;
 	private String message;
 	
+	public ValError() {
+		
+	}
+	
+	public ValError(ErrorCode code, String field, String message) {
+		super();
+		this.code = code;
+		this.field = field;
+		this.message = message;
+	}
 	public ErrorCode getCode() {
 		return code;
 	}
