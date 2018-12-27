@@ -99,31 +99,6 @@ public class UserController {
 		return userResponse;
 	}
 	
-	@RequestMapping("/saveAll")
-	public void saveAll(@RequestBody List<User> users) {
-		userService.saveAll(users);
-	}
-	
-	@RequestMapping("/existsById/{id}")
-	public boolean existsById(@PathVariable String id) {
-		return userService.existsById(id);
-	}
-	
-	@RequestMapping("/count")
-	public long count() {
-		return userService.count();
-	}
-	
-	@RequestMapping("/deleteAll")
-	public void deleteAll() {
-		userService.deleteAll();
-	}
-	
-	@RequestMapping("/deleteById/{id}")
-	public void deleteById(@PathVariable String id) {
-		userService.deleteById(id);
-	}
-	
 	@RequestMapping("/findAll")
 	public List<User> findAll() {
 		return userService.findAll();
@@ -136,6 +111,16 @@ public class UserController {
 			return optionalUser.get();
 		else
 			return null;
+	}
+	
+	@RequestMapping("/currentMonthBirthdays")
+	public List<User> currentMonthBirthdays() {
+		LocalDate initial = LocalDate.now();
+		LocalDate start = initial.withDayOfMonth(1);
+		start = start.minusDays(1);
+		LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
+		List<User> users = userService.findByBirthDateBetween(start, end);
+		return users;
 	}
 	
 	@RequestMapping("/dummyUser")
@@ -152,4 +137,30 @@ public class UserController {
 		else 
 			return false;
 	}
+	
+//	@RequestMapping("/saveAll")
+//	public void saveAll(@RequestBody List<User> users) {
+//		userService.saveAll(users);
+//	}
+//	
+//	@RequestMapping("/existsById/{id}")
+//	public boolean existsById(@PathVariable String id) {
+//		return userService.existsById(id);
+//	}
+//	
+//	@RequestMapping("/count")
+//	public long count() {
+//		return userService.count();
+//	}
+//	
+//	@RequestMapping("/deleteAll")
+//	public void deleteAll() {
+//		userService.deleteAll();
+//	}
+//	
+//	@RequestMapping("/deleteById/{id}")
+//	public void deleteById(@PathVariable String id) {
+//		userService.deleteById(id);
+//	}
+	
 }

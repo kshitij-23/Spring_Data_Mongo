@@ -1,5 +1,8 @@
 package com.ksh.repositories;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +16,7 @@ December 24, 2018
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
-	public User findByEmail(String email);
 	public Integer countByEmailAndIsActive(String email, boolean isActive);
+	public List<User> findByBirthDateBetween(LocalDate startDate, LocalDate endDate);
 	
 }

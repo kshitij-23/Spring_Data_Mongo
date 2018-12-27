@@ -1,5 +1,6 @@
 package com.ksh.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +15,14 @@ public interface UserService {
 	public List<User> findAll();	
 	public Optional<User> findById(String id);
 	public User save(User user);
-	public void saveAll(List<User> users);
-	public boolean existsById(String id);
-	public long count();
-	public void deleteAll();
-	public void deleteById(String id);
 	public void delete(User user);
-	public User findByEmail(String email);
 	public Integer countByEmailAndIsActive(String email, boolean isActive);
+	public List<User> findByBirthDateBetween(LocalDate startDate, LocalDate endDate);
+	
+//	public void saveAll(List<User> users);
+//	public boolean existsById(String id);
+//	public long count();
+//	public void deleteAll();
+//	public void deleteById(String id);
+	
 }
