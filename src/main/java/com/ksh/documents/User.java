@@ -16,6 +16,7 @@ December 24, 2018
 @Document("users")
 public class User implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
 	private String fName;
@@ -24,7 +25,14 @@ public class User implements Serializable {
 	private int pinCode;
 	@JsonFormat(pattern = "dd-MMM-yyyy")  
 	private LocalDate birthDate;
+	private boolean isActive;
 	
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	public String getId() {
 		return id;
 	}

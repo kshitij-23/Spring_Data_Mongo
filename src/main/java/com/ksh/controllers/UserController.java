@@ -2,6 +2,7 @@ package com.ksh.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksh.documents.User;
+import com.ksh.reqrep.ResponseFactory;
 import com.ksh.reqrep.UserResponse;
+import com.ksh.reqrep.ValError;
 import com.ksh.services.UserService;
+import com.ksh.validations.UserValidation;
 
 /**
 KSHITIJ
-Dec 24, 2018
+December 24, 2018
 **/
 
 @RestController
@@ -25,35 +29,74 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/dummyUser")
-	public User dummyUser() {
-		User user = new User();
-		user.setBirthDate(LocalDate.now());
-		return user;
-	}
-	
-	@RequestMapping("/findAll")
-	public List<User> findAll() {
-		return userService.findAll();
-	}
-	
-	@RequestMapping("/findById/{id}")
-	public User findById(@PathVariable String id) {
-		return userService.findById(id);
-	}
-	
 	@RequestMapping("/save")
-	public User save(@RequestBody User user) {
-		User user2 = userService.save(user);
-		UserResponse userResponse = new UserResponse();
-		if(user2.getId() != null && !user2.getId().isEmpty()) {
-			userResponse.setResMsg("User created Successfully.");
-			userResponse.setUserId(user2.getId());
-			userResponse.setValErrors(null);
+	public UserResponse save(@RequestBody User user) {
+		
+		ValError[] valErrors = UserValidation.validate(user, "Insert");
+		UserResponse userResponse = null;
+		if(valErrors != null && valErrors.length > 0) {
+			userResponse = ResponseFactory.getUserCreateFailureResp(valErrors);
 		}
 		else {
-			
+			boolean result = checkEmailExists(user.getEmail());
+			if(result) {
+				userResponse = ResponseFactory.getEmailExistResp();
+				return userResponse; 
+			}
+			user.setId(null); user.setActive(true);
+			User user2 = userService.save(user);
+			if(user2.getId() != null && !user2.getId().isEmpty()) {
+				userResponse = ResponseFactory.getUserCreateSuccessResp(user2.getId());
+			}
 		}
+		return userResponse;
+	}
+	
+	@RequestMapping("/update")
+	public UserResponse update(@RequestBody User user) {
+		
+		ValError[] valErrors = UserValidation.validate(user, "Update");
+		UserResponse userResponse = new UserResponse();
+		if(valErrors != null && valErrors.length > 0) {
+			userResponse = ResponseFactory.getUserUpdateFailureResp(valErrors);
+		}
+		else {
+			Optional<User> optionalUser = userService.findById(user.getId());
+			if(optionalUser.isPresent()) {
+				User user2 = optionalUser.get();
+				user2.setPinCode(user.getPinCode());
+				user2.setBirthDate(user.getBirthDate());
+				userService.save(user2);
+				userResponse = ResponseFactory.getUserUpdateSuccessResp(user2.getId());
+			}
+			else {
+				userResponse = ResponseFactory.getUserNotExistResp(user.getId());
+			}
+		}
+		return userResponse;
+	}
+	
+	@RequestMapping("/delete")
+	public UserResponse delete(@RequestBody User user) {
+		
+		ValError[] valErrors = UserValidation.validate(user, "Delete");
+		UserResponse userResponse = null;
+		if(valErrors != null && valErrors.length > 0) {
+			userResponse = ResponseFactory.getUserDeleteFailureResp(valErrors);
+		}
+		else {
+			Optional<User> optionalUser = userService.findById(user.getId());
+			if(optionalUser.isPresent()) {
+				User user2 = optionalUser.get(); 
+				user2.setActive(false);
+				userService.save(user2);
+				userResponse = ResponseFactory.getUserDeleteSuccessResp(user.getId());
+			}
+			else {
+				userResponse = ResponseFactory.getUserNotExistResp(user.getId());
+			}
+		}
+		return userResponse;
 	}
 	
 	@RequestMapping("/saveAll")
@@ -81,8 +124,32 @@ public class UserController {
 		userService.deleteById(id);
 	}
 	
-	@RequestMapping("/delete")
-	public void delete(@RequestBody User user) {
-		userService.delete(user);
+	@RequestMapping("/findAll")
+	public List<User> findAll() {
+		return userService.findAll();
+	}
+	
+	@RequestMapping("/findById/{id}")
+	public User findById(@PathVariable String id) {
+		Optional<User> optionalUser = userService.findById(id);
+		if(optionalUser.isPresent())
+			return optionalUser.get();
+		else
+			return null;
+	}
+	
+	@RequestMapping("/dummyUser")
+	public User dummyUser() {
+		User user = new User();
+		user.setBirthDate(LocalDate.now());
+		return user;
+	}
+	
+	private boolean checkEmailExists(String email) {
+		Integer integer = userService.countByEmailAndIsActive(email, true);
+		if(integer != null && integer > 0) 
+			return true;
+		else 
+			return false;
 	}
 }

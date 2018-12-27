@@ -2,6 +2,9 @@ package com.ksh.reqrep;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
 KSHITIJ
 Dec 24, 2018
@@ -9,8 +12,11 @@ Dec 24, 2018
 public class UserResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@JsonInclude(Include.NON_NULL)
 	private String resMsg;
+	@JsonInclude(Include.NON_NULL)
 	private String userId;
+	@JsonInclude(Include.NON_NULL)
 	private ValError[] valErrors;
 	
 	public String getResMsg() {

@@ -1,6 +1,7 @@
 package com.ksh.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 	@Override
-	public User findById(String id) {
-		return userRepository.findById(id).get();
+	public Optional<User> findById(String id) {
+		return userRepository.findById(id);
 	}
 	@Override
 	public User save(User user) {
@@ -55,5 +56,13 @@ public class UserServiceImpl implements UserService {
 	public void delete(User user) {
 		userRepository.delete(user);
 	}
-	
+	@Override
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	@Override
+	public Integer countByEmailAndIsActive(String email, boolean isActive) {
+		return userRepository.countByEmailAndIsActive(email, isActive);
+	}
+
 }

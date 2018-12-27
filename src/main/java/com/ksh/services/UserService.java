@@ -1,6 +1,7 @@
 package com.ksh.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ksh.documents.User;
 
@@ -11,7 +12,7 @@ December 24, 2018
 public interface UserService {
 
 	public List<User> findAll();	
-	public User findById(String id);
+	public Optional<User> findById(String id);
 	public User save(User user);
 	public void saveAll(List<User> users);
 	public boolean existsById(String id);
@@ -19,4 +20,6 @@ public interface UserService {
 	public void deleteAll();
 	public void deleteById(String id);
 	public void delete(User user);
+	public User findByEmail(String email);
+	public Integer countByEmailAndIsActive(String email, boolean isActive);
 }
