@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ksh.documents.MonthWiseBirthDateCount;
 import com.ksh.documents.User;
 import com.ksh.repositories.UserRepository;
 
@@ -44,6 +45,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findByBirthDateBetween(LocalDate startDate, LocalDate endDate) {
 		return userRepository.findByBirthDateBetween(startDate, endDate);
+	}
+	@Override
+	public List<MonthWiseBirthDateCount> monthWiseBirthdatesCount() {
+		return userRepository.monthWiseBirthdatesCount();
 	}
 	
 //	@Override

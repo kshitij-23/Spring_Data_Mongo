@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ksh.documents.MonthWiseBirthDateCount;
 import com.ksh.documents.User;
 import com.ksh.reqrep.ResponseFactory;
 import com.ksh.reqrep.UserResponse;
@@ -32,7 +32,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/save")
-	public @ResponseBody UserResponse save(@RequestBody User user) {
+	public UserResponse save(@RequestBody User user) {
 		
 		ValError[] valErrors = UserValidation.validate(user, "Insert");
 		UserResponse userResponse = null;
@@ -123,6 +123,11 @@ public class UserController {
 		LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
 		List<User> users = userService.findByBirthDateBetween(start, end);
 		return users;
+	}
+	
+	@RequestMapping("/monthWiseBirthdatesCount")
+	public List<MonthWiseBirthDateCount> monthWiseBirthdatesCount() {
+		return userService.monthWiseBirthdatesCount();
 	}
 	
 	@RequestMapping("/dummyUser")
