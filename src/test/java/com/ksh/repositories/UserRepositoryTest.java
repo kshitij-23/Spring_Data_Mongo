@@ -27,38 +27,38 @@ public class UserRepositoryTest {
 		assertThat(userRepository).isNotNull();
 	}
 	
-//    @Test
-//    public void saveAndFindTest() {
-//    	System.out.println("Testing SaveAndFind Test");
-//    	User user = getDummyObject();
-//    	User user2 = userRepository.save(user);
-//        Optional<User> found = userRepository.findById(user2.getId());
-//        assertThat(found.get().getfName()).isEqualTo(user2.getfName());
-//    }
-//    @Test
-//    public void saveAndFindAllTest() {
-//    	System.out.println("Testing SaveAndFindAll Test");
-//    	User user = getDummyObject();
-//    	userRepository.save(user);
-//    	List<User> users = userRepository.findAll();
-//    	assertThat(users.size()).isEqualTo(1);
-//    }
-//    @Test
-//    public void saveAndCountByEmailAndIsActiveTest() {
-//    	System.out.println("Testing saveAndCountByEmailAndIsActiveTest Test");
-//    	User user = getDummyObject();
-//    	User user2 = userRepository.save(user);
-//    	int count = userRepository.countByEmailAndIsActive(user2.getEmail(), user2.isActive());
-//    	assertThat(1).isNotEqualTo(count);
-//    }
-//    @Test
-//    public void saveAndFindByBirthDateBetweenTest() {
-//    	System.out.println("Testing saveAndFindByBirthDateBetweenTest Test");
-//    	User user = getDummyObject();
-//    	userRepository.save(user);
-//    	List<User> users = userRepository.findByBirthDateBetween(LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
-//    	assertThat(1).isNotEqualTo(users.size());
-//    }
+    @Test
+    public void saveAndFindTest() {
+    	System.out.println("Testing SaveAndFind Test");
+    	User user = getDummyObject();
+    	User user2 = userRepository.save(user);
+        Optional<User> found = userRepository.findById(user2.getId());
+        assertThat(found.get().getfName()).isEqualTo(user2.getfName());
+    }
+    @Test
+    public void saveAndFindAllTest() {
+    	System.out.println("Testing SaveAndFindAll Test");
+    	User user = getDummyObject();
+    	userRepository.save(user);
+    	List<User> users = userRepository.findAll();
+    	assertThat(users.size()).isEqualTo(1);
+    }
+    @Test
+    public void saveAndCountByEmailAndIsActiveTest() {
+    	System.out.println("Testing saveAndCountByEmailAndIsActiveTest Test");
+    	User user = getDummyObject();
+    	User user2 = userRepository.save(user);
+    	int count = userRepository.countByEmailAndIsActive(user2.getEmail(), user2.isActive());
+    	assertThat(1).isNotEqualTo(count);
+    }
+    @Test
+    public void saveAndFindByBirthDateBetweenTest() {
+    	System.out.println("Testing saveAndFindByBirthDateBetweenTest Test");
+    	User user = getDummyObject();
+    	userRepository.save(user);
+    	List<User> users = userRepository.findByBirthDateBetween(LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
+    	assertThat(1).isNotEqualTo(users.size());
+    }
     
     private User getDummyObject() {
     	User user = new User();

@@ -12,10 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -31,6 +27,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +41,7 @@ import com.ksh.services.UserService;
 @SpringBootTest
 @ContextConfiguration(classes = SpringDataMongoApplication.class)
 @AutoConfigureMockMvc
+@EnableWebMvc
 public class UserControllerTest {
 
 	@Autowired
@@ -77,20 +75,21 @@ public class UserControllerTest {
 				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].fName", is(user.getfName())));
 	}
 
-	@Test
-	public void testSave() throws Exception {
-		String url = "/user/save";
-		User user1 = getDummyObject();
-		User user2 = getDummyObject();
-		user2.setId("12345");
-		String jsonString = mapToJson(user1);
-		System.out.println("----------------------------------------------"+jsonString);
-		System.out.println("----------------------------------------------"+mockMvc);
-		when(userService.save(user1)).thenReturn(user2);
-		mockMvc.perform(post(url).accept(MediaType.APPLICATION_JSON).content(jsonString).contentType(MediaType.APPLICATION_JSON));
-//				.andExpect(status().isOk());
-//				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$.resMsg", is("User created Successfully.")));
-	}
+//	@Test
+//	public void testSave() throws Exception {
+//		String url = "/user/save";
+//		User user1 = getDummyObject();
+//		User user2 = getDummyObject();
+//		user2.setId("12345");
+//		String jsonString = mapToJson(user1);
+//		when(userService.save(user1)).thenReturn(user2);
+//		mockMvc.perform(post(url).content(jsonString).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8"))
+//        	   .andExpect(status().isOk());
+//		
+////		mockMvc.perform(post(url).content(jsonString).contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON))
+////				.andExpect(status().isOk())
+////				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$.resMsg", is("User created Successfully.")));
+//	}
 
 	@SuppressWarnings("deprecation")
 	private String mapToJson(User obj) throws JsonProcessingException {
