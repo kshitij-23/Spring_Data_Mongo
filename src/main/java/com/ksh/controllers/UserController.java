@@ -130,6 +130,11 @@ public class UserController {
 		return user;
 	}
 	
+	@RequestMapping("/testService")
+	public String testService() {
+		return "Services Are Running...";
+	}
+	
 	private boolean checkEmailExists(String email) {
 		Integer integer = userService.countByEmailAndIsActive(email, true);
 		if(integer != null && integer > 0) 

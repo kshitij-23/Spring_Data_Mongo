@@ -18,5 +18,14 @@ public interface UserRepository extends MongoRepository<User, String> {
 
 	public Integer countByEmailAndIsActive(String email, boolean isActive);
 	public List<User> findByBirthDateBetween(LocalDate startDate, LocalDate endDate);
+//	Below Query Can be used for Above requirement.
+//	db.users.find({
+//		   "$expr": { 
+//		       "$and": [
+//		            { "$eq": [ { "$month" : "$birthDate" }, { "$month" : new Date() } ] }
+//		       ]
+//		    }
+//		});
+	
 	
 }
