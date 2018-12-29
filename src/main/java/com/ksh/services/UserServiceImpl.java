@@ -48,7 +48,8 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public List<MonthWiseBirthDateCount> monthWiseBirthdatesCount() {
-		return userRepository.monthWiseBirthdatesCount();
+		return null;
+//		return userRepository.monthWiseBirthdatesCount();
 	}
 	
 //	@Override
