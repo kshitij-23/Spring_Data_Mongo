@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "dc94b650-1513-41db-8b69-b4b078e61a8b",
+		"name": "Postman_Request_Json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/user/monthWiseBirthdatesCount",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user/monthWiseBirthdatesCount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"monthWiseBirthdatesCount"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8080/user/monthWiseBirthdatesCount",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\"\n       \n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/monthWiseBirthdatesCount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"monthWiseBirthdatesCount"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 30 Dec 2018 16:19:06 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"count\": 16,\n        \"monthValue\": \"December\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://localhost:8080/user/currentMonthBirthdays",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user/currentMonthBirthdays",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"currentMonthBirthdays"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/delete",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\"\n       \n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/delete",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"\"\n       \n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123568,\n        \"birthDate\": \"29-Dec-2017\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123567,\n        \"birthDate\": \"29-Dec-2019\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123,\n        \"birthDate\": \"29-Dec-2017\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2017\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"5c28ecaa6cd3c3062c430590\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2017\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2018\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"Solanki\",\n        \"email\": \"\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2018\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"\",\n        \"fName\": \"Kshitij42\",\n        \"lName\": \"\",\n        \"email\": \"ks42@ks.com\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2018\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"\",\n        \"fName\": \"Kshitij41\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks41@ks.com\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2018\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": \"\",\n        \"fName\": \"Kshitij\",\n        \"lName\": \"Solanki\",\n        \"email\": \"ks@ks.com\",\n        \"pinCode\": 123456,\n        \"birthDate\": \"29-Dec-2018\",\n        \"active\": true\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/findAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
