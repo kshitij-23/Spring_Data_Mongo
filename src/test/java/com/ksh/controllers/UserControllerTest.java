@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,12 +31,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.ksh.Spring_Data_Mongo.SpringDataMongoApplication;
 import com.ksh.documents.User;
 import com.ksh.services.UserService;
 
+@SuppressWarnings("deprecation")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = SpringDataMongoApplication.class)
@@ -59,13 +61,6 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void testService() throws Exception {
-		String url = "/user/testService";
-		this.mockMvc.perform(get(url)).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("Services")));
-	}
-
-	@Test
 	public void testFindAll() throws Exception {
 		String url = "/user/findAll";
 		User user = getDummyObject();
@@ -75,28 +70,28 @@ public class UserControllerTest {
 				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].fName", is(user.getfName())));
 	}
 
-//	@Test
-//	public void testSave() throws Exception {
-//		String url = "/user/save";
-//		User user1 = getDummyObject();
-//		User user2 = getDummyObject();
-//		user2.setId("12345");
-//		String jsonString = mapToJson(user1);
-//		when(userService.save(user1)).thenReturn(user2);
-//		mockMvc.perform(post(url).content(jsonString).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8"))
-//        	   .andExpect(status().isOk());
-//		
-////		mockMvc.perform(post(url).content(jsonString).contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON))
-////				.andExpect(status().isOk())
-////				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$.resMsg", is("User created Successfully.")));
-//	}
+	@Test
+	public void testSaveUpdate() throws Exception {
+		String url = "/user/update";
+		User user1 = getDummyObject();
+		user1.setId("12345");
+		Optional<User> optional = Optional.of(user1);
+		when(userService.save(user1)).thenReturn(user1);
+		String jsonString = mapToJson(user1);
+		when(userService.findById(user1.getId())).thenReturn(optional);
+		mockMvc.perform(post(url).content(jsonString).contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString(optional.get().getId())));
+	}
 
-	@SuppressWarnings("deprecation")
 	private String mapToJson(User obj) throws JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JSR310Module());
-		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-		return objectMapper.writeValueAsString(obj);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JSR310Module());
+		mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+	    String requestJson = ow.writeValueAsString(obj);
+	    return requestJson;
 	}
 
 	private User getDummyObject() {

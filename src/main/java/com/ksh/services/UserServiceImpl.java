@@ -35,10 +35,6 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 	@Override
-	public void delete(User user) {
-		userRepository.delete(user);
-	}
-	@Override
 	public Integer countByEmailAndIsActive(String email, boolean isActive) {
 		return userRepository.countByEmailAndIsActive(email, isActive);
 	}
@@ -48,9 +44,13 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public List<MonthWiseBirthDateCount> monthWiseBirthdatesCount() {
-		return null;
-//		return userRepository.monthWiseBirthdatesCount();
+		return userRepository.monthWiseBirthdatesCount();
 	}
+	@Override
+	public void deleteAll() {
+		userRepository.deleteAll();
+	}
+	
 	
 //	@Override
 //	public void saveAll(List<User> users) {
@@ -65,13 +65,12 @@ public class UserServiceImpl implements UserService {
 //		return userRepository.count();
 //	}
 //	@Override
-//	public void deleteAll() {
-//		userRepository.deleteAll();
-//	}
-//	@Override
 //	public void deleteById(String id) {
 //		userRepository.deleteById(id);
 //	}
-	
+//	@Override
+//	public void delete(User user) {
+//		userRepository.delete(user);
+//	}
 
 }

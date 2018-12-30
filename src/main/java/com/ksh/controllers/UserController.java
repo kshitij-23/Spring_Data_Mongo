@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksh.documents.MonthWiseBirthDateCount;
@@ -32,7 +33,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/save")
-	public UserResponse save(@RequestBody User user) {
+	public @ResponseBody UserResponse save(@RequestBody User user) {
 		
 		ValError[] valErrors = UserValidation.validate(user, "Insert");
 		UserResponse userResponse = null;
@@ -101,11 +102,6 @@ public class UserController {
 		return userResponse;
 	}
 	
-	@RequestMapping("/findAll")
-	public List<User> findAll() {
-		return userService.findAll();
-	}
-	
 	@RequestMapping("/findById/{id}")
 	public User findById(@PathVariable String id) {
 		Optional<User> optionalUser = userService.findById(id);
@@ -125,6 +121,11 @@ public class UserController {
 		return users;
 	}
 	
+	@RequestMapping("/findAll")
+	public List<User> findAll() {
+		return userService.findAll();
+	}
+	
 	@RequestMapping("/monthWiseBirthdatesCount")
 	public List<MonthWiseBirthDateCount> monthWiseBirthdatesCount() {
 		return userService.monthWiseBirthdatesCount();
@@ -137,9 +138,9 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping("/testService")
-	public String testService() {
-		return "Services Are Running...";
+	@RequestMapping("/deleteAll")
+	public void deleteAll() {
+		userService.deleteAll();
 	}
 	
 	private boolean checkEmailExists(String email) {
@@ -150,29 +151,5 @@ public class UserController {
 			return false;
 	}
 	
-//	@RequestMapping("/saveAll")
-//	public void saveAll(@RequestBody List<User> users) {
-//		userService.saveAll(users);
-//	}
-//	
-//	@RequestMapping("/existsById/{id}")
-//	public boolean existsById(@PathVariable String id) {
-//		return userService.existsById(id);
-//	}
-//	
-//	@RequestMapping("/count")
-//	public long count() {
-//		return userService.count();
-//	}
-//	
-//	@RequestMapping("/deleteAll")
-//	public void deleteAll() {
-//		userService.deleteAll();
-//	}
-//	
-//	@RequestMapping("/deleteById/{id}")
-//	public void deleteById(@PathVariable String id) {
-//		userService.deleteById(id);
-//	}
-	
+		
 }
