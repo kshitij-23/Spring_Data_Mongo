@@ -40,4 +40,30 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 		return list;
 	}
 
+//	Query is giving perfect output but I was failed to convert into Spring Data Aggregate Query
+//	db.getCollection('users').aggregate( 
+//			[{ 
+//			        $group: 
+//			        { 
+//			            _id: 
+//			            { 
+//			                month: { $month: "$birthDate" }, 
+//			            }, 
+//			            count: { $sum:1 }, 
+//			            date: { $first: "$birthDate" } 
+//			        } 
+//			    }, 
+//			    { 
+//			        $project: 
+//			        { 
+//			            month: 
+//			            { 
+//			                $dateToString: { format: "%m", date: "$date" } 
+//			            }, 
+//			            count: 1, 
+//			            _id: 0 
+//			        } 
+//			    }])
+	
+
 }
