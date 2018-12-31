@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ksh.documents.MonthWiseBirthDateCount;
 import com.ksh.documents.User;
 import com.ksh.reqrep.ResponseFactory;
+import com.ksh.reqrep.ResponseMessages;
 import com.ksh.reqrep.UserResponse;
 import com.ksh.reqrep.ValError;
 import com.ksh.services.UserService;
@@ -38,18 +39,18 @@ public class UserController {
 		ValError[] valErrors = UserValidation.validate(user, "Insert");
 		UserResponse userResponse = null;
 		if(valErrors != null && valErrors.length > 0) {
-			userResponse = ResponseFactory.getUserCreateFailureResp(valErrors);
+			userResponse = ResponseFactory.getUserResponse(null, valErrors, ResponseMessages.CREATE_FAILURE_MSG);
 		}
 		else {
 			boolean result = checkEmailExists(user.getEmail());
 			if(result) {
-				userResponse = ResponseFactory.getEmailExistResp();
+				userResponse = ResponseFactory.getUserResponse(null, null, ResponseMessages.EMAIL_EXISTS_MSG);
 				return userResponse; 
 			}
 			user.setId(null); user.setActive(true);
 			User user2 = userService.save(user);
 			if(user2.getId() != null && !user2.getId().isEmpty()) {
-				userResponse = ResponseFactory.getUserCreateSuccessResp(user2.getId());
+				userResponse = ResponseFactory.getUserResponse(user2.getId(), null, ResponseMessages.CREATE_SUCCESS_MSG);
 			}
 		}
 		return userResponse;
@@ -61,7 +62,7 @@ public class UserController {
 		ValError[] valErrors = UserValidation.validate(user, "Update");
 		UserResponse userResponse = new UserResponse();
 		if(valErrors != null && valErrors.length > 0) {
-			userResponse = ResponseFactory.getUserUpdateFailureResp(valErrors);
+			userResponse = ResponseFactory.getUserResponse(null, valErrors, ResponseMessages.UPDATE_FAILURE_MSG);
 		}
 		else {
 			Optional<User> optionalUser = userService.findById(user.getId());
@@ -70,10 +71,10 @@ public class UserController {
 				user2.setPinCode(user.getPinCode());
 				user2.setBirthDate(user.getBirthDate());
 				userService.save(user2);
-				userResponse = ResponseFactory.getUserUpdateSuccessResp(user2.getId());
+				userResponse = ResponseFactory.getUserResponse(user2.getId(), null, ResponseMessages.UPDATE_SUCCESS_MSG);
 			}
 			else {
-				userResponse = ResponseFactory.getUserNotExistResp(user.getId());
+				userResponse = ResponseFactory.getUserResponse(user.getId(), null, ResponseMessages.USER_NOT_EXISTS_MSG);
 			}
 		}
 		return userResponse;
@@ -85,7 +86,7 @@ public class UserController {
 		ValError[] valErrors = UserValidation.validate(user, "Delete");
 		UserResponse userResponse = null;
 		if(valErrors != null && valErrors.length > 0) {
-			userResponse = ResponseFactory.getUserDeleteFailureResp(valErrors);
+			userResponse = ResponseFactory.getUserResponse(null, valErrors, ResponseMessages.UPDATE_FAILURE_MSG);
 		}
 		else {
 			Optional<User> optionalUser = userService.findById(user.getId());
@@ -93,10 +94,10 @@ public class UserController {
 				User user2 = optionalUser.get(); 
 				user2.setActive(false);
 				userService.save(user2);
-				userResponse = ResponseFactory.getUserDeleteSuccessResp(user.getId());
+				userResponse = ResponseFactory.getUserResponse(user.getId(), null, ResponseMessages.DELETE_SUCCESS_MSG);
 			}
 			else {
-				userResponse = ResponseFactory.getUserNotExistResp(user.getId());
+				userResponse = ResponseFactory.getUserResponse(user.getId(), null, ResponseMessages.USER_NOT_EXISTS_MSG);
 			}
 		}
 		return userResponse;
